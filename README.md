@@ -12,6 +12,8 @@ This engine provides two melody channels, plus percussion that may take the plac
 
 The track currently needs to be referenced in main.s.6502
 
+Playback speen can be altered in the track file by updating music_speed.  0x7 works for an unexpanded Electron, and 0xf for an Electron with a turbo board enabled.
+
 Release Notes:
 
 - v0.1 - Initial BeebAsm port for the Acorn Electron
