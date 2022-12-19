@@ -1,0 +1,96 @@
+.play_song
+            tsx
+            stx s_reg
+            ldx #$03
+._ch		    
+            lda _ch1,x
+            sta channel,x
+            dex
+            bpl _ch
+.loop		
+            ldx #$00
+.load		   
+            lda (channel,x)
+            bpl _80_1
+            lda _ch1,x
+            sta channel,x
+            lda _ch1+1,x
+            sta channel+1,x
+            lda (channel,x)
+._80_1		
+            inc channel,x
+            bne _80_2
+            inc channel+1,x
+._80_2		
+            tay
+            lda _notes,y
+            pha
+            pha
+            pha
+            sec
+            sbc #$01
+            pha
+            beq _80_en1
+            lda #$08
+._80_en1		 
+            pha
+            lda #$00
+            pha
+            txa
+            eor #%10
+            tax				
+            bne load
+            tay ; =0
+            lda music_speed
+            sta speed
+.iloop		 
+            tsx
+._2kolej		
+            lda $0101,x
+
+            ; Speaker
+            sta     temp
+            bne     speaker_on            ;2/3
+            lda     #SPEAKER_OFF          ;2
+            jmp     set_speaker           ;3 jump always
+.speaker_on
+            nop
+            lda     #SPEAKER_ON           ;2
+.set_speaker
+            sta     SHEILA_MISC_CONTROL   ;4
+            lda     temp
+
+            dec $0105,x
+            bne _2kl
+            eor $0102,x
+            sta $0101,x
+            lda $0106,x
+            sta $0105,x
+            lda $0104,x
+            cmp #$20
+            bcs _2kl
+            inc $0106,x
+._2kl		   
+            dec $0103,x
+            bne _2kn
+            lda $0101,x
+            eor $0102,x
+            sta $0101,x
+            lda $0106,x
+            sec             ; 2
+            sbc #$01        ; 2
+            sta $0103,x     ; 5
+._2kn
+            txa
+            clc
+            adc #$06
+            tax
+            cpx s_reg
+            bne _2kolej
+       
+            dey
+            bne iloop
+            dec speed
+            bne iloop
+            txs
+            jmp loop

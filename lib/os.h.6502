@@ -1,0 +1,6 @@
+MACRO toggleSpeaker
+    lda     #(SPEAKER_ON EOR SPEAKER_OFF)   ; 2
+    eor     toggle                          ; 3
+    sta     toggle                          ; 3
+    sta     SHEILA_MISC_CONTROL             ; 4
+ENDMACRO

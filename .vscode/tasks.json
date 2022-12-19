@@ -1,0 +1,46 @@
+{
+    "version": "2.0.0",
+    "command": "cmd",
+    "echoCommand": true,
+    "args": [
+        "/C"
+    ],
+    "tasks": [
+        {
+            "label": "Electric_Duet.ssd",
+            "type": "shell",
+            "args": [
+                "make.bat"
+            ],
+            "problemMatcher": {
+                "owner": "6502",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceRoot}"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "severity": 3,
+                    "message": 4
+                }
+            },
+            "group": "build"
+        },{
+            "label": "Run in Elkultor",
+            "type": "shell",
+            "args": [
+                "start \"Elkulator.exe -disc .\\Electric_Duet.ssd\""
+            ],
+            "group": "test"
+        },{
+            "label": "Run in ElectrEm",
+            "type": "shell",
+            "args": [
+                "start \"ElectrEm.exe -disc .\\Electric_Duet.ssd\""
+            ],
+            "group": "test"
+        }
+    ]
+}

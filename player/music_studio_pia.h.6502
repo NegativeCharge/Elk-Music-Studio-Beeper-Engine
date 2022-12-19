@@ -1,0 +1,4 @@
+.temp           SKIP 1
+.speed          SKIP 1
+._channel	    SKIP 4
+.zpage		    SKIP 10

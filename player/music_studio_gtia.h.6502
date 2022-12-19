@@ -1,0 +1,4 @@
+.temp               SKIP 1
+.s_reg		        SKIP 1
+.speed		        SKIP 1
+.channel	        SKIP 4

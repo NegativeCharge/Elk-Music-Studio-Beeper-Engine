@@ -1,0 +1,15 @@
+OSBYTE                  = $FFF4 
+OSWRCH                  = $FFEE
+
+SHEILA_COUNTER          = $FE06
+SHEILA_MISC_CONTROL     = $FE07
+
+SPEAKER_OFF             = %00100001
+SPEAKER_ON              = %10100010
+
+ZERO_PAGE_START         = $69
+ZERO_PAGE_END           = $9f
+BASE                    = $1900
+SCREEN                  = $5800
+
+DEBUG                   = FALSE

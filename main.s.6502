@@ -1,0 +1,52 @@
+INCLUDE "constants.h.6502"
+
+ORG     ZERO_PAGE_START
+GUARD   ZERO_PAGE_END
+
+INCLUDE "lib\os.h.6502"
+INCLUDE "player\music_studio_pia.h.6502"
+
+ORG     BASE
+GUARD   SCREEN
+
+.start
+    INCLUDE "player\music_studio_pia.s.6502"
+    INCLUDE "tracks\demo.ms.6502"
+
+.init
+    sei                         ; Disable interrupts
+
+    lda     #$00
+    sta     SHEILA_COUNTER      ; Zero the ULA SHEILA counter (FE06), creating a toggle speaker (inaudible frequency)
+        
+    jsr     play_song           ; Call the play routine
+
+    lda     #SPEAKER_OFF        ; Turn off the speaker
+    sta     SHEILA_MISC_CONTROL 
+
+    cli                         ; Enable interrupts
+
+    rts
+
+.end
+
+SAVE "MAIN",start,end,init
+
+\ ******************************************************************
+\ *    Memory Info
+\ ******************************************************************
+
+PRINT "-----------------------------"
+PRINT "  1-BIT MUSIC STUDIO PLAYER  "
+PRINT "-----------------------------"
+PRINT "HIGH WATERMARK        = ", ~P%
+PRINT "FREE                  = ", ~start+end
+PRINT "-----------------------------"
+
+\ ******************************************************************
+\ * Supporting Files
+\ ******************************************************************
+
+PUTBASIC "loader.bas","LOADER"
+PUTFILE  "BOOT","!BOOT",&FFFF
+PUTFILE  "bkgnd.mode4.bin","BKGND",&5800
